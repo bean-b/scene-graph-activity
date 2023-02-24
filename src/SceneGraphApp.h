@@ -70,6 +70,7 @@ private:
 	void initializeText();
 	void drawText(const std::string text, float xPos, float yPos, GLfloat windowHeight, GLfloat windowWidth);
 	struct FONScontext* fs;
+    void constructGraph(std::shared_ptr<SceneNode> root);
     basicgraphics::GLSLProgram _textShader;
 };
 

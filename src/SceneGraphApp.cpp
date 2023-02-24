@@ -109,6 +109,26 @@ void SceneGraphApp::onRenderGraphicsContext(const VRGraphicsState &renderState) 
         ground.reset(new GroundPlane(vec3(0, -1, 0), vec3(0, 1, 0)));
         
         //TODO: Construct the scenegraph to draw the robot
+
+		//constructGraph(sceneGraphRoot);
+		mat4 transform1 = mat4(1.0);
+		sceneGraphRoot.reset(new SceneNode(transform1));
+
+		std::shared_ptr<Box> body = std::shared_ptr<Box>(new Box(vec3(0, 0, 0), vec3(1, 2, 1), vec4(1, 1, 1, 1)));
+		mat4 transform2 = mat4(1.0);
+		transform2 = translate(transform2, vec3(0, 1, 0));
+		std::shared_ptr<SceneNode> BodyNode = std::shared_ptr<SceneNode>(new SceneNode(transform2, body));
+		sceneGraphRoot->addChild(BodyNode);
+
+		std::shared_ptr<Box> arm = std::shared_ptr<Box>(new Box(vec3(0, 0, 0), vec3(.5, 1, .5), vec4(0, 1, 1, 1)));
+
+		mat4 transform3 = translate(transform2, vec3(1, 0, 0));
+		BodyNode->addChild(std::shared_ptr<SceneNode>(new SceneNode(transform3, arm)));
+
+
+		mat4 transform4 = translate(transform2, vec3(-1, 0, 0));
+		BodyNode->addChild(std::shared_ptr<SceneNode>(new SceneNode(transform4, arm)));
+
         
     }
 }
@@ -208,4 +228,9 @@ void SceneGraphApp::initializeText() {
 	_textShader.compileShader("textRendering.vert", GLSLShader::VERTEX);
 	_textShader.compileShader("textRendering.frag", GLSLShader::FRAGMENT);
 	_textShader.link();
+}
+
+void constructGraph(std::unique_ptr<SceneNode> root) {
+	
+
 }
